@@ -1,0 +1,281 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<string.h>
+#include<conio.h>
+#include<ctype.h>
+
+
+
+struct Adding
+{
+    char song[50];
+    char artist[50];
+    char genre [50];
+};
+
+int main()
+{
+    printf("\t\t\tHello Welcome to SavTunes \n\n");
+    int choice, n,i,k=1,check=0,track=0,j,p,q,r,s,t=0,sort=0,pass=1,pass2=1,  songnumber=0,random=0,lower=0,upper=0;//is=0;
+    char password[50],username[50],password1[50],user1[50];
+    char search[50], temp1[50],temp2[50],temp3[50];
+    struct Adding *a;
+    printf("To make your experience more safer and secure we request you to please create a username and password\n");
+    printf("Please enter a username\n");
+    getchar();
+    gets(username);
+    while(pass!=0)
+    {
+    printf("Please enter a password\n");
+    getchar();
+    gets(password);
+    printf("Please re enter password\n");
+    getchar();
+    gets(password1);
+    if(strcmp(password,password1)==0)
+        pass=0;
+    else
+        printf("Password did not match please try again\n");
+    }
+printf("Thank you please enter your login details now\n");
+while(pass2!=0)
+{
+printf("USERNAME: ");
+getchar();
+gets(user1);
+printf("\nPASSWORD: ");
+getchar();
+gets(password1);
+if((strcmp(user1,username)==0)&& strcmp(password1,password)==0)
+    pass2=0;
+else
+    printf("Your login details do not match\n");
+}
+
+
+    while(k!=0)
+    {
+
+
+    printf("\nWhat would you like to do ?? \n");
+    printf("\n1.Enter new songs \n2.Display list of songs\n3.Search a song\n4.Delete\n5.Shuffle\n6.Exit\n\n");
+    scanf("%d", &choice);
+    switch(choice)
+    {
+    case 1:
+        check=1;
+        printf("You wish to add songs , please specify how many would you currently like to add \n");
+        scanf("%d", &n);
+        if(track==0)
+        {
+            a = (struct Adding*)malloc(n* sizeof(struct Adding));
+        }
+        else
+        {
+            a =(struct Adding*)realloc(a, sizeof(struct Adding)* n);
+        }
+        printf("You can start adding your favourite songs now \n\n\n");
+        for (i=0;i<n;i++)
+        {
+            printf("Enter song name\n");
+            if(i==0)
+            {
+            getchar();
+            }
+            strupr(gets((a+track)->song));
+            printf("Enter artist name\n");
+            strupr(gets((a+track)->artist));
+            printf("Enter genre\n");
+            strupr(gets((a+track)->genre));
+
+            track++;
+        }
+
+        break;
+    case 2:
+            if(check==1)
+        {
+           printf("\nPlease specify how would you like to sort your list\n");
+           printf("1.Song\n2.Artist \n3.Genre\n");
+           scanf("%d", &sort);
+           if(sort==1)
+           {
+            for(i=0;i<track;i++)
+            {
+                for(j=i+1;j<track;j++)
+                {
+                    q = strcmp((a+i)->song,(a+j)->song);
+                    if(q > 0)
+                    {
+                        strcpy(temp1,(a+i)->song);
+                        strcpy((a+i)->song,(a+j)->song);
+                        strcpy((a+j)->song,temp1);
+
+                        strcpy(temp2,(a+i)->artist);
+                        strcpy((a+i)->artist,(a+j)->artist);
+                        strcpy((a+j)->artist,temp2);
+
+                        strcpy(temp3,(a+i)->genre);
+                        strcpy((a+i)->genre,(a+j)->genre);
+                        strcpy((a+j)->genre,temp3);
+
+                    }
+
+
+
+                }
+
+            }
+           }
+           else if(sort==2)
+           {
+            for(i=0;i<track;i++)
+            {
+                for(j=i+1;j<track;j++)
+                {
+                    q = strcmp((a+i)->artist,(a+j)->artist);
+                    if(q > 0)
+                    {
+                        strcpy(temp1,(a+i)->song);
+                        strcpy((a+i)->song,(a+j)->song);
+                        strcpy((a+j)->song,temp1);
+
+                        strcpy(temp2,(a+i)->artist);
+                        strcpy((a+i)->artist,(a+j)->artist);
+                        strcpy((a+j)->artist,temp2);
+
+                        strcpy(temp3,(a+i)->genre);
+                        strcpy((a+i)->genre,(a+j)->genre);
+                        strcpy((a+j)->genre,temp3);
+
+                    }
+
+
+
+                }
+
+            }
+           }
+           else if(sort==3)
+           {
+            for(i=0;i<track;i++)
+            {
+                for(j=i+1;j<track;j++)
+                {
+                    q = strcmp((a+i)->genre,(a+j)->genre);
+                    if(q > 0)
+                    {
+                        strcpy(temp1,(a+i)->song);
+                        strcpy((a+i)->song,(a+j)->song);
+                        strcpy((a+j)->song,temp1);
+
+                        strcpy(temp2,(a+i)->artist);
+                        strcpy((a+i)->artist,(a+j)->artist);
+                        strcpy((a+j)->artist,temp2);
+
+                        strcpy(temp3,(a+i)->genre);
+                        strcpy((a+i)->genre,(a+j)->genre);
+                        strcpy((a+j)->genre,temp3);
+
+                    }
+
+
+
+                }
+
+            }
+           }
+
+            printf("Number \t\t     Song \t\t   Artist \t\t   Genre \n");
+
+         for (i=0;i<track;i++)
+         {
+            printf("%d. \t\t", i+1);
+            printf("%9s \t\t", (a+i)->song);
+            printf("%9s \t\t", (a+i)->artist);
+            printf("%9s \t\t\n", (a+i)->genre);
+
+         }
+        }
+        else
+            printf("\n\nNo songs are there to be printed\n");
+
+        break;
+    case 3:
+
+        printf("\nEnter the song, artist or genre you want to search\n");
+        getchar();
+        strupr(gets(search));
+
+        printf("Number \t\t     Song \t\t   Artist \t\t   Genre \n");
+          for(i=0;i<track;i++)
+        {
+
+           p = strcmp((a+i)->song,search);
+           r = strcmp((a+i)->artist,search);
+           s = strcmp((a+i)->genre,search);
+            if( p == 0 || r == 0 || s == 0)
+                {
+             t=1;
+            printf("%d. \t\t", i+1);
+            printf("%9s \t\t", (a+i)->song);
+            printf("%9s \t\t", (a+i)->artist);
+            printf("%9s \t\t\n", (a+i)->genre);
+
+         }
+                }
+
+            if(t==0)
+            {
+                    printf("\n\nNo result\n\n");
+            }
+            t=0;
+        break;
+    case 4:
+        printf("Please specify which song number you would like to delete\n");
+        scanf("%d",&songnumber);
+        if(songnumber>track)
+        {
+            printf("Song does not exist");
+
+        }
+        else
+        {
+
+         track=track-1;
+         a =(struct Adding*)realloc(a, sizeof(struct Adding)* track);
+         for(j=songnumber-1;j<track;j++)
+         {
+             strcpy((a+j)->song,(a+j+1)->song);
+             strcpy((a+j)->artist,(a+j+1)->artist);
+             strcpy((a+j)->genre,(a+j+1)->genre);
+         }
+         }
+
+        break;
+    case 5:
+        lower = 0 ;
+        upper = track;
+        //if(is=0)
+        //{
+        random = (rand() % (upper - lower )) + lower;
+        //is=1;
+        //}
+        //if
+        printf("%d\t\t",random);
+        printf("%9s \t\t", (a+random)->song);
+        printf("%9s \t\t", (a+random)->artist);
+        printf("%9s \t\t\n", (a+random)->genre);
+        break;
+    case 6:
+        k=0;
+        printf("\nThank you for using SavTunes \n");
+        free(a);
+        break;
+    default:
+        printf("\nOops ! Please enter one of the mentioned choices\n");
+
+    }
+    }
+    return 0;
+}
